@@ -18,13 +18,14 @@ import org.springframework.web.bind.annotation.*;
  * @since 2021-09-17
  */
 @RestController
+@RequestMapping("api")
 public class UmsMemberController {
 
     @Autowired
     private UmsMemberService umsMemberService;
 
     @CrossOrigin
-    @RequestMapping(value = "api/login",method = RequestMethod.POST)
+    @RequestMapping(value = "/login",method = RequestMethod.POST)
     @ResponseBody
     public CommonResult login(@RequestBody UmsMemberLoginParam umsMemberLoginParam){
         String result = umsMemberService.login(umsMemberLoginParam.getUsername(), umsMemberLoginParam.getPassword());
@@ -35,7 +36,7 @@ public class UmsMemberController {
     }
 
     @CrossOrigin
-    @RequestMapping(value = "api/register",method = RequestMethod.POST)
+    @RequestMapping(value = "/register",method = RequestMethod.POST)
     @ResponseBody
     public CommonResult register(@RequestBody UmsMemberRegisterParam registerParam){
         UmsMember umsMember = umsMemberService.register(registerParam.getUsername(),registerParam.getPassword(),registerParam.getAge(),
@@ -47,7 +48,7 @@ public class UmsMemberController {
     }
 
     @CrossOrigin
-    @RequestMapping(value = "api/personal",method = RequestMethod.GET)
+    @RequestMapping(value = "/personal",method = RequestMethod.GET)
     @ResponseBody
     public CommonResult personal(@RequestParam String username){
         UmsMember umsMember = umsMemberService.getByOne(username);
