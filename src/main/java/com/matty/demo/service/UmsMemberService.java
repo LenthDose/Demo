@@ -1,6 +1,7 @@
 package com.matty.demo.service;
 
 import com.matty.demo.api.CommonResult;
+import com.matty.demo.dto.UmsMemberRegisterParam;
 import com.matty.demo.entity.UmsMember;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -16,7 +17,9 @@ public interface UmsMemberService extends IService<UmsMember> {
 
     String login(String username, String password);
 
-    UmsMember register(String username, String password, int age, int gender, String phone);
+    UmsMember register(String username, String password, int age, int gender, String phone, String address);
 
     UmsMember getByOne(String username);
+
+    UmsMember updateByUser(UmsMember umsMember);
 }

@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 
 public class UmsMemberRegister {
 
-    public static  UmsMember setUmsMember(String username, String password, int age, int gender, String phone){
+    public static  UmsMember setUmsMember(String username, String password, int age, int gender, String phone,String address){
         UmsMember umsMember = new UmsMember();
         umsMember.setUsername(username);
         umsMember.setPassword(password);
@@ -15,6 +15,7 @@ public class UmsMemberRegister {
         umsMember.setPhone(phone);
         umsMember.setStatus(1);
         umsMember.setCreateTime(LocalDateTime.now());
+        umsMember.setAddress(address);
         return umsMember;
     };
 

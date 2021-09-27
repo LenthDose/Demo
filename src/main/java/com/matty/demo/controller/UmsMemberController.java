@@ -40,7 +40,7 @@ public class UmsMemberController {
     @ResponseBody
     public CommonResult register(@RequestBody UmsMemberRegisterParam registerParam){
         UmsMember umsMember = umsMemberService.register(registerParam.getUsername(),registerParam.getPassword(),registerParam.getAge(),
-                registerParam.getGender(),registerParam.getPhone());
+                registerParam.getGender(),registerParam.getPhone(),registerParam.getAddress());
         if (umsMember == null){
             return CommonResult.failed();
         }
@@ -48,7 +48,7 @@ public class UmsMemberController {
     }
 
     @CrossOrigin
-    @RequestMapping(value = "/personal",method = RequestMethod.GET)
+    @RequestMapping(value = "/profile",method = RequestMethod.GET)
     @ResponseBody
     public CommonResult personal(@RequestParam String username){
         UmsMember umsMember = umsMemberService.getByOne(username);
@@ -56,6 +56,16 @@ public class UmsMemberController {
             return CommonResult.failed();
         }
         return CommonResult.success(umsMember);
+    }
+
+    @RequestMapping(value = "/resetUser",method = RequestMethod.POST)
+    @ResponseBody
+    public CommonResult resetUser(@RequestBody UmsMember umsMember){
+        UmsMember member =  umsMemberService.updateByUser(umsMember);
+        if (member != null){
+            return CommonResult.success(umsMember);
+        }
+        return CommonResult.failed();
     }
 
 }

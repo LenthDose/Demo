@@ -27,4 +27,8 @@ public class UmsMemberRegisterParam {
     @NotEmpty
     @ApiModelProperty(value = "电话",required = true)
     private String phone;
+
+    @NotEmpty
+    @ApiModelProperty(value = "地址",required = true)
+    private String address;
 }

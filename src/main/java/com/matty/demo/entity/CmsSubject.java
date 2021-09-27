@@ -27,7 +27,9 @@ public class CmsSubject implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "id",type = IdType.AUTO)
-    private Long categoryId;
+    private Integer id;
+
+    private Long category_id;
 
     private String title;
 

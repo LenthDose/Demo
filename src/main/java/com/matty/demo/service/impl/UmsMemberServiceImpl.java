@@ -1,7 +1,9 @@
 package com.matty.demo.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.matty.demo.dto.UmsMemberRegister;
+import com.matty.demo.dto.UmsMemberRegisterParam;
 import com.matty.demo.entity.UmsMember;
 import com.matty.demo.mapper.UmsMemberMapper;
 import com.matty.demo.service.UmsMemberService;
@@ -25,6 +27,8 @@ public class UmsMemberServiceImpl extends ServiceImpl<UmsMemberMapper, UmsMember
 
     @Autowired
     private UmsMemberService umsMemberService;
+    @Resource
+    private UmsMemberMapper memberMapper;
 
 
     @Override
@@ -40,11 +44,11 @@ public class UmsMemberServiceImpl extends ServiceImpl<UmsMemberMapper, UmsMember
     }
 
     @Override
-    public UmsMember register(String username, String password, int age, int gender, String phone) {
+    public UmsMember register(String username, String password, int age, int gender, String phone,String address) {
         if (umsMemberService.getById(username) != null) {
             return null;
         } else {
-            UmsMember umsMember = UmsMemberRegister.setUmsMember(username, password, age, gender, phone);
+            UmsMember umsMember = UmsMemberRegister.setUmsMember(username, password, age, gender, phone, address);
             System.out.println(umsMemberService.save(umsMember));
             return umsMember;
         }
@@ -55,6 +59,11 @@ public class UmsMemberServiceImpl extends ServiceImpl<UmsMemberMapper, UmsMember
         QueryWrapper<UmsMember> wrapper = new QueryWrapper<>();
         UmsMember umsMember = umsMemberService.getOne(wrapper.eq("username",username));
         return umsMember;
+    }
+
+    @Override
+    public UmsMember updateByUser(UmsMember umsMember) {
+
     }
 
 

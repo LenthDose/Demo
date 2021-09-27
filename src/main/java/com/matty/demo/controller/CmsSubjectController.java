@@ -2,12 +2,18 @@ package com.matty.demo.controller;
 
 
 import com.matty.demo.api.CommonResult;
+import com.matty.demo.dto.CmsSubjectParam;
 import com.matty.demo.entity.CmsSubject;
 import com.matty.demo.service.CmsSubjectService;
+import com.matty.demo.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * <p>
@@ -20,6 +26,7 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "api/product")
 public class CmsSubjectController {
+
     @Autowired
     private CmsSubjectService cmsSubjectService;
 
@@ -31,40 +38,53 @@ public class CmsSubjectController {
         return CommonResult.success(list);
     }
 
-    @RequestMapping(value = "/study", method = RequestMethod.GET)
+    @RequestMapping(value = "/list/category", method = RequestMethod.GET)
     @ResponseBody
-    public CommonResult<List<CmsSubject>> studyProduct(){
-        List<CmsSubject> list = cmsSubjectService.list(1);
+    public CommonResult<List<CmsSubject>> ProductByCategoryId(@RequestParam(value = "categoryid") Integer categoryId){
+        List<CmsSubject> list = cmsSubjectService.list(categoryId);
         return CommonResult.success(list);
     }
 
-    @RequestMapping(value = "/life", method = RequestMethod.GET)
+
+    @RequestMapping(value = "/listAll",method = RequestMethod.GET)
     @ResponseBody
-    public CommonResult<List<CmsSubject>> lifeProduct(){
-        List<CmsSubject> list = cmsSubjectService.list(2);
+    public CommonResult<List<CmsSubject>> ProductList(){
+        List<CmsSubject> list = cmsSubjectService.list();
         return CommonResult.success(list);
     }
 
-    @RequestMapping(value = "/tech", method = RequestMethod.GET)
-    @ResponseBody
-    public CommonResult<List<CmsSubject>> techProduct(){
-        List<CmsSubject> list = cmsSubjectService.list(3);
-        return CommonResult.success(list);
+
+    @CrossOrigin
+    @PostMapping("/covers")
+    public String coversUpload(MultipartFile file) throws Exception {
+        String folder = "C:\\Users\\Silhouette76\\Desktop\\Demo\\src\\main\\resources\\img";
+        File imageFolder = new File(folder);
+        File f = new File(imageFolder, StringUtils.getRandomString(6) + file.getOriginalFilename()
+                .substring(file.getOriginalFilename().length() - 4));
+        if (!f.getParentFile().exists())
+            f.getParentFile().mkdirs();
+        try {
+            file.transferTo(f);
+            String imgURL = "http://localhost:8090/api/file/" + f.getName();
+            return imgURL;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "";
+        }
     }
 
-    @RequestMapping(value = "/cosm", method = RequestMethod.GET)
+
+    @RequestMapping(value = "/add",method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult<List<CmsSubject>> cosmProduct(){
-        List<CmsSubject> list = cmsSubjectService.list(4);
-        return CommonResult.success(list);
+    public CommonResult add(@RequestBody CmsSubjectParam cmsSubjectParam){
+        CmsSubject subject = cmsSubjectService.save(cmsSubjectParam);
+        if (subject != null){
+            return CommonResult.success(subject);
+        }
+        return CommonResult.failed();
     }
 
-    @RequestMapping(value = "/other", method = RequestMethod.GET)
-    @ResponseBody
-    public CommonResult<List<CmsSubject>> otherProduct(){
-        List<CmsSubject> list = cmsSubjectService.list(5);
-        return CommonResult.success(list);
-    }
+
 
 }
 
