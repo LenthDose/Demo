@@ -18,7 +18,5 @@ public interface CmsSubjectService extends IService<CmsSubject> {
     List<CmsSubject> list(Integer categoryId);
 
 
-
-
-
+    List<CmsSubject> listByUser(Integer cid);
 }

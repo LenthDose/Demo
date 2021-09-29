@@ -37,7 +37,7 @@ public class UmsMemberController {
         if (umsMember == null){
             return CommonResult.failed();
         }
-        return CommonResult.success(tokenUtil.generateToken(umsMember));
+        return CommonResult.success(umsMember);
     }
 
     @CrossOrigin
@@ -73,6 +73,8 @@ public class UmsMemberController {
         }
         return CommonResult.failed();
     }
+
+
 
 }
 

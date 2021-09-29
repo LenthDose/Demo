@@ -57,7 +57,7 @@ public class CmsSubjectController {
     @CrossOrigin
     @PostMapping("/covers")
     public String coversUpload(MultipartFile file) throws Exception {
-        String folder = "C:\\Users\\Silhouette76\\Desktop\\Demo\\src\\main\\resources\\img";
+        String folder = "C:\\Users\\Silhouette76\\Desktop\\Demo\\src\\main\\resources\\static\\img";
         File imageFolder = new File(folder);
         File f = new File(imageFolder, StringUtils.getRandomString(6) + file.getOriginalFilename()
                 .substring(file.getOriginalFilename().length() - 4));
@@ -65,7 +65,7 @@ public class CmsSubjectController {
             f.getParentFile().mkdirs();
         try {
             file.transferTo(f);
-            String imgURL = "http://localhost:8090/api/file/" + f.getName();
+            String imgURL = "http://localhost:8090/api/" + f.getName();
             return imgURL;
         } catch (IOException e) {
             e.printStackTrace();
@@ -82,6 +82,14 @@ public class CmsSubjectController {
             return CommonResult.success(cmsSubject);
         }
         return CommonResult.failed();
+    }
+
+    @CrossOrigin
+    @RequestMapping(value = "/getByUser", method = RequestMethod.GET)
+    @ResponseBody
+    public CommonResult<List<CmsSubject>> getByUser(@RequestParam Integer cid){
+        List<CmsSubject> list = cmsSubjectService.listByUser(cid);
+        return CommonResult.success(list);
     }
 
 

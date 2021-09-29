@@ -29,7 +29,7 @@ public class MyWebConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/api/file/**").addResourceLocations("file:" + "C:\\Users\\Silhouette76\\Desktop\\Demo\\src\\main\\resources\\img");
+        registry.addResourceHandler("/api/**").addResourceLocations("classpath:/static/");
     }
 
 }

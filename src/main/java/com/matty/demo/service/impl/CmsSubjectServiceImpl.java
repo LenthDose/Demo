@@ -32,6 +32,13 @@ public class CmsSubjectServiceImpl extends ServiceImpl<CmsSubjectMapper, CmsSubj
         return list;
     }
 
+    @Override
+    public List<CmsSubject> listByUser(Integer cid) {
+        QueryWrapper wrapper = new QueryWrapper<>();
+        wrapper.eq("cid",cid);
+        List<CmsSubject> list = subjectService.list(wrapper);
+        return list;
+    }
 
 
 }
