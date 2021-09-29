@@ -1,6 +1,5 @@
 package com.matty.demo.service;
 
-import com.matty.demo.dto.CmsSubjectParam;
 import com.matty.demo.entity.CmsSubject;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -19,7 +18,7 @@ public interface CmsSubjectService extends IService<CmsSubject> {
     List<CmsSubject> list(Integer categoryId);
 
 
-    CmsSubject save(CmsSubjectParam cmsSubjectParam);
+
 
 
 }

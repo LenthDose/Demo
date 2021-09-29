@@ -51,7 +51,5 @@ public class UmsMember implements Serializable {
     @ApiModelProperty(value = "年龄")
     private Integer age;
 
-    @ApiModelProperty(value = "地址")
-    private String address;
 
 }

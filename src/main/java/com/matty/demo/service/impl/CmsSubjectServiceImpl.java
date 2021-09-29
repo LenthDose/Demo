@@ -1,8 +1,6 @@
 package com.matty.demo.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.matty.demo.dto.CmsSubjectParam;
-import com.matty.demo.dto.ProductAdd;
 import com.matty.demo.entity.CmsSubject;
 import com.matty.demo.mapper.CmsSubjectMapper;
 import com.matty.demo.service.CmsSubjectService;
@@ -34,13 +32,6 @@ public class CmsSubjectServiceImpl extends ServiceImpl<CmsSubjectMapper, CmsSubj
         return list;
     }
 
-    @Override
-    public CmsSubject save(CmsSubjectParam cmsSubjectParam) {
-        CmsSubject subject = ProductAdd.add(cmsSubjectParam);
-        System.out.println(subject);
-        System.out.println(subjectService.save(subject));
-        return subject;
-    }
 
 
 }

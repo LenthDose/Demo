@@ -5,10 +5,13 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.time.LocalDateTime;
 import java.io.Serializable;
+import java.util.Date;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.springframework.beans.factory.annotation.Value;
 
 /**
  * <p>
@@ -36,14 +39,15 @@ public class CmsSubject implements Serializable {
     @ApiModelProperty(value = "商品主图")
     private String pic;
 
-    private LocalDateTime createTime;
+    private LocalDateTime createTime = LocalDateTime.now();
 
     private Integer readCount;
 
     private String description;
 
     @ApiModelProperty(value = "显示状态：0->不显示；1->显示")
-    private Integer showStatus;
+    private Integer showStatus = 1;
 
+    private Long cid;
 
 }

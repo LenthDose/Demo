@@ -2,9 +2,10 @@ package com.matty.demo.controller;
 
 
 import com.matty.demo.api.CommonResult;
-import com.matty.demo.dto.CmsSubjectParam;
 import com.matty.demo.entity.CmsSubject;
+import com.matty.demo.entity.UmsMember;
 import com.matty.demo.service.CmsSubjectService;
+import com.matty.demo.service.UmsMemberService;
 import com.matty.demo.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +14,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * <p>
@@ -76,10 +76,10 @@ public class CmsSubjectController {
 
     @RequestMapping(value = "/add",method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult add(@RequestBody CmsSubjectParam cmsSubjectParam){
-        CmsSubject subject = cmsSubjectService.save(cmsSubjectParam);
-        if (subject != null){
-            return CommonResult.success(subject);
+    public CommonResult<CmsSubject> add(@RequestBody CmsSubject cmsSubject){
+        boolean is = cmsSubjectService.save(cmsSubject);
+        if(is){
+            return CommonResult.success(cmsSubject);
         }
         return CommonResult.failed();
     }

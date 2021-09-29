@@ -2,6 +2,7 @@ package com.matty.demo.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.matty.demo.dto.UmsMemberLoginParam;
 import com.matty.demo.dto.UmsMemberRegister;
 import com.matty.demo.dto.UmsMemberRegisterParam;
 import com.matty.demo.entity.UmsMember;
@@ -32,23 +33,18 @@ public class UmsMemberServiceImpl extends ServiceImpl<UmsMemberMapper, UmsMember
 
 
     @Override
-    public String login(String username, String password) {
+    public UmsMember login(UmsMemberLoginParam umsMemberLoginParam) {
         QueryWrapper<UmsMember> wrapper = new QueryWrapper<>();
-        UmsMember umsMember = umsMemberService.getOne(wrapper.eq("username",username));
-        if (umsMember != null){
-            if (umsMember.getPassword().equals(password)){
-                return "登录成功";
-            }
-        }
-         return null;
+        UmsMember umsMember = umsMemberService.getOne(wrapper.eq("username",umsMemberLoginParam.getUsername()));
+        return umsMember;
     }
 
     @Override
-    public UmsMember register(String username, String password, int age, int gender, String phone,String address) {
+    public UmsMember register(String username, String password, int age, int gender, String phone) {
         if (umsMemberService.getById(username) != null) {
             return null;
         } else {
-            UmsMember umsMember = UmsMemberRegister.setUmsMember(username, password, age, gender, phone, address);
+            UmsMember umsMember = UmsMemberRegister.setUmsMember(username, password, age, gender, phone);
             System.out.println(umsMemberService.save(umsMember));
             return umsMember;
         }
@@ -60,11 +56,5 @@ public class UmsMemberServiceImpl extends ServiceImpl<UmsMemberMapper, UmsMember
         UmsMember umsMember = umsMemberService.getOne(wrapper.eq("username",username));
         return umsMember;
     }
-
-    @Override
-    public UmsMember updateByUser(UmsMember umsMember) {
-
-    }
-
 
 }
